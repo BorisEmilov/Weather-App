@@ -478,11 +478,11 @@ const Home = () => {
                 </>
             }
 
-            <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-start z-10 gap-8'>
+            <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-start z-10 gap-6'>
                 <div className='w-[100%] mt-4 flex items-center justify-center z-50'>
                     <input type='text' value={location} onChange={event => setLocation(event.target.value)} onKeyPress={Serch} placeholder='Search...' className='w-[80%] h-[40px] md:w-[60%] text-center rounded-[20px]' />
                 </div>
-                <div onClick={refresh} className='flex items-center justify-center p-4 backdrop-blur-md bg-white/30 rounded-[50%] cursor-pointer'>
+                <div onClick={refresh} className='flex items-center justify-center p-2 backdrop-blur-md bg-white/30 rounded-[50%] cursor-pointer'>
                     <MdOutlineGpsFixed size={30} />
                 </div>
 
