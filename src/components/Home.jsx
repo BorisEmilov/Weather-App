@@ -534,7 +534,7 @@ const Home = () => {
                             } />
                             {
                                 apiData.forecast &&
-                                <>
+                                <div className='w-[100%] h-[100%] flex flex-col items-center justify-start gap-4 overflow-auto mt-10'>
 
                                     <div className='w-[98%] max-w-[500px] h-[100%] flex flex-col items-center justify-start overflow-auto gap-4'>
 
@@ -728,7 +728,7 @@ const Home = () => {
                                             </div>
                                         </div>
                                     </div>
-                                </>
+                                </div>
                             }
                         </>
                         :
