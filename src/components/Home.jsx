@@ -64,7 +64,7 @@ const Home = () => {
 
 
     return (
-        <div className='w-[100vw] h-[100vh]'>
+        <div className='absolute w-[100vw] h-[100vh] flex flex-col items-center justify-center z-20 overflow-auto'>
             {
                 apiData.forecast &&
                 <>
@@ -480,7 +480,7 @@ const Home = () => {
 
             <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-start z-10 gap-6'>
                 <div className='w-[100%] mt-4 flex items-center justify-center z-50'>
-                    <input type='text' value={location} onChange={event => setLocation(event.target.value)} onKeyPress={Serch} placeholder='Search...' className='w-[80%] h-[40px] md:w-[60%] text-center rounded-[20px]' />
+                    <input type='text' value={location} onChange={event => setLocation(event.target.value)} onKeyPress={Serch} placeholder='Search...' className='w-[80%] h-[40px] md:w-[60%] text-center rounded-[20px] border-solid border-[2px] border-blue-500' />
                 </div>
                 <div onClick={refresh} className='flex items-center justify-center p-2 backdrop-blur-md bg-white/30 rounded-[50%] cursor-pointer'>
                     <MdOutlineGpsFixed size={30} />
@@ -489,45 +489,45 @@ const Home = () => {
                 {
                     apiData.current ?
 
-                        <>
+                        <div className='w-[100%] flex flex-col items-center justify-start overflow-auto'>
                             <GlassEfect content={
                                 <>
-                                    <p className='text-2xl mt-2'><b>{apiData.location.country} - {apiData.location.name}</b></p>
+                                    <p className='md:text-2xl text-[20px] mt-2'><b>{apiData.location.country} - {apiData.location.name}</b></p>
                                     <div className='w-[100%] flex items-center justify-center gap-8'>
                                         <img src={apiData.current.condition.icon} className='w-[120px]' alt='/' />
 
                                         <div className='flex items-center justify-center gap-2'>
                                             <BsThermometerHigh size={30} />
-                                            <p className='text-2xl'><b>{apiData.current.temp_c} ºC</b></p>
+                                            <p className='text-[20px] md:text-2xl'><b>{apiData.current.temp_c} ºC</b></p>
                                         </div>
 
                                     </div>
                                     <div className='w-[100%] flex items-center justify-center gap-6'>
                                         <div className='flex items-center justify-center gap-2'>
                                             <BsFillCloudRainHeavyFill size={25} />
-                                            <p className='text-xl'><b>{apiData.current.precip_mm} mm</b></p>
+                                            <p className='text-[16px] md:text-xl'><b>{apiData.current.precip_mm} mm</b></p>
                                         </div>
                                         <div className='flex items-center justify-center gap-2'>
                                             <GiWindsock size={25} />
-                                            <p className='text-xl'><b>{apiData.current.wind_kph} Kmh</b></p>
+                                            <p className='text-[16px] md:text-xl'><b>{apiData.current.wind_kph} Kmh</b></p>
                                         </div>
                                     </div>
                                     <div className='w-[100%] flex items-center justify-center gap-3 md:gap-10 text-xl mt-4'>
                                         <div className='flex items-center justify-center gap-1'>
                                             <AiFillCloud />
-                                            <p><b>{apiData.current.cloud}</b></p>
+                                            <p className='text-[16px] md:text-xl'><b>{apiData.current.cloud}</b></p>
                                         </div>
                                         <div className='flex items-center justify-center gap-1'>
                                             <WiHumidity />
-                                            <p><b>{apiData.current.humidity}%</b></p>
+                                            <p className='text-[16px] md:text-xl'><b>{apiData.current.humidity}%</b></p>
                                         </div>
                                         <div className='flex items-center justify-center gap-1'>
                                             <MdOutlineVisibility />
-                                            <p><b>{apiData.current.vis_km}km</b></p>
+                                            <p className='text-[16px] md:text-xl'><b>{apiData.current.vis_km}km</b></p>
                                         </div>
                                     </div>
-                                    <div className='flex flex-col items-center justify-center gap-1 p-2 mt-2'>
-                                        <p><b>last update:</b></p>
+                                    <div className='flex flex-col items-center justify-center p-1 mt-1'>
+                                        <p className='text-[16px] md:text-xl'><b>last update:</b></p>
                                         <p>{apiData.current.last_updated}</p>
                                     </div>
                                 </>
@@ -538,7 +538,7 @@ const Home = () => {
 
                                     <div className='w-[98%] max-w-[500px] h-[100%] flex flex-col items-center justify-start overflow-auto gap-4'>
 
-                                        <div className='w-[100%]' onClick={() => setValue(apiData.forecast.forecastday[0].date)}>
+                                        <div className='w-[100%] text-[14px] md:text-xl' onClick={() => setValue(apiData.forecast.forecastday[0].date)}>
                                             <div onClick={handleOpen} className='w-[100%] flex items-center justify-between bg-[#778da9] rounded-[20px] p-2 cursor-pointer text-white'>
                                                 <div className='h-[100%] flex flex-col items-center justify-center'>
                                                     <img src={apiData.forecast.forecastday[0].day.condition.icon} alt='/' />
@@ -577,7 +577,7 @@ const Home = () => {
                                         </div>
 
                                         {/* second */}
-                                        <div className='w-[100%]' onClick={() => setValue(apiData.forecast.forecastday[1].date)}>
+                                        <div className='w-[100%] text-[14px] md:text-xl' onClick={() => setValue(apiData.forecast.forecastday[1].date)}>
                                             <div onClick={handleOpen} className='w-[100%] flex items-center justify-between bg-[#778da9] rounded-[20px] p-2 cursor-pointer text-white'>
                                                 <div className='h-[100%] flex flex-col items-center justify-center'>
                                                     <img src={apiData.forecast.forecastday[1].day.condition.icon} alt='/' />
@@ -615,7 +615,7 @@ const Home = () => {
                                         </div>
 
                                         {/* third */}
-                                        <div className='w-[100%]' onClick={() => setValue(apiData.forecast.forecastday[2].date)}>
+                                        <div className='w-[100%] text-[14px] md:text-xl' onClick={() => setValue(apiData.forecast.forecastday[2].date)}>
                                             <div onClick={handleOpen} className='w-[100%] flex items-center justify-between bg-[#778da9] rounded-[20px] p-2 cursor-pointer text-white'>
                                                 <div className='h-[100%] flex flex-col items-center justify-center'>
                                                     <img src={apiData.forecast.forecastday[2].day.condition.icon} alt='/' />
@@ -653,7 +653,7 @@ const Home = () => {
                                         </div>
 
                                         {/* fourth */}
-                                        <div className='w-[100%]' onClick={() => setValue(apiData.forecast.forecastday[3].date)}>
+                                        <div className='w-[100%] text-[14px] md:text-xl' onClick={() => setValue(apiData.forecast.forecastday[3].date)}>
                                             <div onClick={handleOpen} className='w-[100%] flex items-center justify-between bg-[#778da9] rounded-[20px] p-2 cursor-pointer text-white'>
                                                 <div className='h-[100%] flex flex-col items-center justify-center'>
                                                     <img src={apiData.forecast.forecastday[3].day.condition.icon} alt='/' />
@@ -691,7 +691,7 @@ const Home = () => {
                                         </div>
 
                                         {/* fifth */}
-                                        <div className='w-[100%]' onClick={() => setValue(apiData.forecast.forecastday[4].date)}>
+                                        <div className='w-[100%] text-[14px] md:text-xl' onClick={() => setValue(apiData.forecast.forecastday[4].date)}>
                                             <div onClick={handleOpen} className='w-[100%] flex items-center justify-between bg-[#778da9] rounded-[20px] p-2 cursor-pointer text-white'>
                                                 <div className='h-[100%] flex flex-col items-center justify-center'>
                                                     <img src={apiData.forecast.forecastday[4].day.condition.icon} alt='/' />
@@ -727,10 +727,11 @@ const Home = () => {
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             }
-                        </>
+                        </div>
                         :
                         <GeoWeather />
                 }

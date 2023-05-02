@@ -13,6 +13,7 @@ import { Divider } from '@mui/material'
 import { BiWind } from 'react-icons/bi'
 import { RxCross1 } from 'react-icons/rx'
 import { SiRainmeter } from 'react-icons/si'
+import { TbCurrentLocationOff } from 'react-icons/tb'
 
 
 const Modal = ({ handle, content }) => {
@@ -62,12 +63,32 @@ const GeoWeather = () => {
         })
     }, [full_url])
 
-    console.log(data)
 
     const refresh = () => window.location.reload(true)
 
     return (
-        <div className='absolute w-[100vw] h-[100vh] flex items-center justify-center z-20'>
+        <>
+        {
+            data.location &&
+                data.location.name === 'Null' ?
+                <div className='w-[100%] h-[100%] flex flex-col items-center justify-start'>
+                    <div className='w-[70%] max-w-[500px] h-[60%] bg-[#415a77] rounded-[20px] flex flex-col items-center justify-center text-center text-white gap-5'>
+                        <TbCurrentLocationOff size={40} />
+                        <p className='text-[20px]'><b>We Are NOT Eable to Locate your position</b></p>
+
+                        <Divider sx={{ width: '90%'}} />
+                        <div className='text-center'>
+                        <p>1. Maybe your Location is switch off on your browser</p>
+                        <p>2. Try REFRESHING the page</p>
+                        <p>3. Maybe your browser is not compatible with our geolocation tecnology</p>
+                        </div>
+
+                        <Divider sx={{ width: '90%'}} />
+                        <p><b>YOU CAN MANUALY SEARCH FOR ANY PLACE</b></p>
+                    </div>
+                </div>
+                :
+                <div className='absolute w-[100vw] h-[100vh] flex flex-col items-center justify-center z-20 overflow-auto'>
             {
                 data.forecast &&
                 <>
@@ -484,55 +505,55 @@ const GeoWeather = () => {
                 data.current &&
                 <div className='absolute w-[100%] h-[100%] flex flex-col items-center justify-center z-30'>
                     <div className='w-[100%] flex items-center justify-center mt-[80px]'>
-                    <GlassEfect content={
-                        <>
-                            <p onLoad={data.location.name === 'Null' ? refresh : undefined} className='text-2xl mt-2'><b>{data.location.country} - {data.location.name}</b></p>
-                            <div className='w-[100%] flex items-center justify-center gap-8'>
-                                <img src={data.current.condition.icon} className='w-[120px]' alt='/' />
+                        <GlassEfect content={
+                            <>
+                                <p onLoad={data.location.name === 'Null' ? refresh : undefined} className='text-2xl mt-2'><b>{data.location.country} - {data.location.name}</b></p>
+                                <div className='w-[100%] flex items-center justify-center gap-8'>
+                                    <img src={data.current.condition.icon} className='w-[120px]' alt='/' />
 
-                                <div className='flex items-center justify-center gap-2'>
-                                    <BsThermometerHigh size={30} />
-                                    <p className='text-2xl'><b>{data.current.temp_c} ºC</b></p>
-                                </div>
+                                    <div className='flex items-center justify-center gap-2'>
+                                        <BsThermometerHigh size={30} />
+                                        <p className='text-2xl'><b>{data.current.temp_c} ºC</b></p>
+                                    </div>
 
-                            </div>
-                            <div className='w-[100%] flex items-center justify-center gap-6'>
-                                <div className='flex items-center justify-center gap-2'>
-                                    <BsFillCloudRainHeavyFill size={25} />
-                                    <p className='text-xl'><b>{data.current.precip_mm} mm</b></p>
                                 </div>
-                                <div className='flex items-center justify-center gap-2'>
-                                    <GiWindsock size={25} />
-                                    <p className='text-xl'><b>{data.current.wind_kph} Kmh</b></p>
+                                <div className='w-[100%] flex items-center justify-center gap-6'>
+                                    <div className='flex items-center justify-center gap-2'>
+                                        <BsFillCloudRainHeavyFill size={25} />
+                                        <p className='text-xl'><b>{data.current.precip_mm} mm</b></p>
+                                    </div>
+                                    <div className='flex items-center justify-center gap-2'>
+                                        <GiWindsock size={25} />
+                                        <p className='text-xl'><b>{data.current.wind_kph} Kmh</b></p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className='w-[100%] flex items-center justify-center gap-3 md:gap-10 text-xl mt-4'>
-                                <div className='flex items-center justify-center gap-1'>
-                                    <AiFillCloud />
-                                    <p><b>{data.current.cloud}</b></p>
+                                <div className='w-[100%] flex items-center justify-center gap-3 md:gap-10 text-xl mt-4'>
+                                    <div className='flex items-center justify-center gap-1'>
+                                        <AiFillCloud />
+                                        <p><b>{data.current.cloud}</b></p>
+                                    </div>
+                                    <div className='flex items-center justify-center gap-1'>
+                                        <WiHumidity />
+                                        <p><b>{data.current.humidity}%</b></p>
+                                    </div>
+                                    <div className='flex items-center justify-center gap-1'>
+                                        <MdOutlineVisibility />
+                                        <p><b>{data.current.vis_km}km</b></p>
+                                    </div>
                                 </div>
-                                <div className='flex items-center justify-center gap-1'>
-                                    <WiHumidity />
-                                    <p><b>{data.current.humidity}%</b></p>
+                                <div className='flex flex-col items-center justify-center gap-1 p-2 mt-2'>
+                                    <p><b>last update:</b></p>
+                                    <p>{data.current.last_updated}</p>
                                 </div>
-                                <div className='flex items-center justify-center gap-1'>
-                                    <MdOutlineVisibility />
-                                    <p><b>{data.current.vis_km}km</b></p>
-                                </div>
-                            </div>
-                            <div className='flex flex-col items-center justify-center gap-1 p-2 mt-2'>
-                                <p><b>last update:</b></p>
-                                <p>{data.current.last_updated}</p>
-                            </div>
-                        </>
-                    } />
+                            </>
+                        } />
                     </div>
 
                     <div className='w-[100%] h-[100%] flex flex-col items-center justify-start gap-4 overflow-auto mt-10'>
 
                         <div className='w-[98%] max-w-[500px] h-[100%] flex flex-col items-center justify-start overflow-auto gap-4'>
 
-                            <div className='w-[100%]' onClick={() => setValue(data.forecast.forecastday[0].date)}>
+                            <div className='w-[100%] text-[14px] md:text-xl' onClick={() => setValue(data.forecast.forecastday[0].date)}>
                                 <div onClick={handleOpen} className='w-[100%] flex items-center justify-between bg-[#778da9] rounded-[20px] p-2 cursor-pointer text-white'>
                                     <div className='h-[100%] flex flex-col items-center justify-center'>
                                         <img src={data.forecast.forecastday[0].day.condition.icon} alt='/' />
@@ -571,7 +592,7 @@ const GeoWeather = () => {
                             </div>
 
                             {/* second */}
-                            <div className='w-[100%]' onClick={() => setValue(data.forecast.forecastday[1].date)}>
+                            <div className='w-[100%] text-[14px] md:text-xl' onClick={() => setValue(data.forecast.forecastday[1].date)}>
                                 <div onClick={handleOpen} className='w-[100%] flex items-center justify-between bg-[#778da9] rounded-[20px] p-2 cursor-pointer text-white'>
                                     <div className='h-[100%] flex flex-col items-center justify-center'>
                                         <img src={data.forecast.forecastday[1].day.condition.icon} alt='/' />
@@ -609,118 +630,118 @@ const GeoWeather = () => {
                             </div>
 
                             {/* third */}
-                            <div className='w-[100%]' onClick={() => setValue(data.forecast.forecastday[2].date)}>
-                                            <div onClick={handleOpen} className='w-[100%] flex items-center justify-between bg-[#778da9] rounded-[20px] p-2 cursor-pointer text-white'>
-                                                <div className='h-[100%] flex flex-col items-center justify-center'>
-                                                    <img src={data.forecast.forecastday[2].day.condition.icon} alt='/' />
-                                                </div>
-                                                <div className='w-[100%] h-[100%] flex flex-col items-center justify-center gap-2'>
-                                                    <div className='w-[100%] h-[50%] flex items-center justify-center gap-6'>
-                                                        <p className='text-green-300 text-center'>{data.forecast.forecastday[2].date}</p>
-                                                        <div className='flex items-center justify-center gap-1'>
-                                                            <BsThermometerSun size={20} />
-                                                            <p><b>{data.forecast.forecastday[2].day.maxtemp_c} ºC</b></p>
-                                                        </div>
-                                                        <p><b>-</b></p>
-                                                        <div className='flex items-center justify-center gap-1'>
-                                                            <BsThermometerSnow size={20} />
-                                                            <p><b>{data.forecast.forecastday[2].day.mintemp_c} ºC</b></p>
-                                                        </div>
-                                                    </div>
-                                                    <Divider sx={{ width: '90%' }} />
-                                                    <div className='w-[100%] h-[50%] flex items-center justify-center gap-8 md:gap-16'>
-                                                        <div className='flex items-center justify-center gap-1'>
-                                                            <BsFillCloudRainHeavyFill />
-                                                            <p><b>{data.forecast.forecastday[2].day.daily_chance_of_rain}%</b></p>
-                                                        </div>
-                                                        <div className='flex items-center justify-center gap-1'>
-                                                            <BsSnow />
-                                                            <p><b>{data.forecast.forecastday[2].day.daily_chance_of_snow}%</b></p>
-                                                        </div>
-                                                        <div className='flex items-center justify-center gap-1'>
-                                                            <BiWind />
-                                                            <p><b>{data.forecast.forecastday[2].day.maxwind_kph} Kmh</b></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                            <div className='w-[100%] text-[14px] md:text-xl' onClick={() => setValue(data.forecast.forecastday[2].date)}>
+                                <div onClick={handleOpen} className='w-[100%] flex items-center justify-between bg-[#778da9] rounded-[20px] p-2 cursor-pointer text-white'>
+                                    <div className='h-[100%] flex flex-col items-center justify-center'>
+                                        <img src={data.forecast.forecastday[2].day.condition.icon} alt='/' />
+                                    </div>
+                                    <div className='w-[100%] h-[100%] flex flex-col items-center justify-center gap-2'>
+                                        <div className='w-[100%] h-[50%] flex items-center justify-center gap-6'>
+                                            <p className='text-green-300 text-center'>{data.forecast.forecastday[2].date}</p>
+                                            <div className='flex items-center justify-center gap-1'>
+                                                <BsThermometerSun size={20} />
+                                                <p><b>{data.forecast.forecastday[2].day.maxtemp_c} ºC</b></p>
+                                            </div>
+                                            <p><b>-</b></p>
+                                            <div className='flex items-center justify-center gap-1'>
+                                                <BsThermometerSnow size={20} />
+                                                <p><b>{data.forecast.forecastday[2].day.mintemp_c} ºC</b></p>
                                             </div>
                                         </div>
+                                        <Divider sx={{ width: '90%' }} />
+                                        <div className='w-[100%] h-[50%] flex items-center justify-center gap-8 md:gap-16'>
+                                            <div className='flex items-center justify-center gap-1'>
+                                                <BsFillCloudRainHeavyFill />
+                                                <p><b>{data.forecast.forecastday[2].day.daily_chance_of_rain}%</b></p>
+                                            </div>
+                                            <div className='flex items-center justify-center gap-1'>
+                                                <BsSnow />
+                                                <p><b>{data.forecast.forecastday[2].day.daily_chance_of_snow}%</b></p>
+                                            </div>
+                                            <div className='flex items-center justify-center gap-1'>
+                                                <BiWind />
+                                                <p><b>{data.forecast.forecastday[2].day.maxwind_kph} Kmh</b></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                                        {/* fourth */}
-                                        <div className='w-[100%]' onClick={() => setValue(data.forecast.forecastday[3].date)}>
-                                            <div onClick={handleOpen} className='w-[100%] flex items-center justify-between bg-[#778da9] rounded-[20px] p-2 cursor-pointer text-white'>
-                                                <div className='h-[100%] flex flex-col items-center justify-center'>
-                                                    <img src={data.forecast.forecastday[3].day.condition.icon} alt='/' />
-                                                </div>
-                                                <div className='w-[100%] h-[100%] flex flex-col items-center justify-center gap-2'>
-                                                    <div className='w-[100%] h-[50%] flex items-center justify-center gap-6'>
-                                                        <p className='text-green-300 text-center'>{data.forecast.forecastday[3].date}</p>
-                                                        <div className='flex items-center justify-center gap-1'>
-                                                            <BsThermometerSun size={20} />
-                                                            <p><b>{data.forecast.forecastday[3].day.maxtemp_c} ºC</b></p>
-                                                        </div>
-                                                        <p><b>-</b></p>
-                                                        <div className='flex items-center justify-center gap-1'>
-                                                            <BsThermometerSnow size={20} />
-                                                            <p><b>{data.forecast.forecastday[3].day.mintemp_c} ºC</b></p>
-                                                        </div>
-                                                    </div>
-                                                    <Divider sx={{ width: '90%' }} />
-                                                    <div className='w-[100%] h-[50%] flex items-center justify-center gap-8 md:gap-16'>
-                                                        <div className='flex items-center justify-center gap-1'>
-                                                            <BsFillCloudRainHeavyFill />
-                                                            <p><b>{data.forecast.forecastday[3].day.daily_chance_of_rain}%</b></p>
-                                                        </div>
-                                                        <div className='flex items-center justify-center gap-1'>
-                                                            <BsSnow />
-                                                            <p><b>{data.forecast.forecastday[3].day.daily_chance_of_snow}%</b></p>
-                                                        </div>
-                                                        <div className='flex items-center justify-center gap-1'>
-                                                            <BiWind />
-                                                            <p><b>{data.forecast.forecastday[3].day.maxwind_kph} Kmh</b></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                            {/* fourth */}
+                            <div className='w-[100%] text-[14px] md:text-xl' onClick={() => setValue(data.forecast.forecastday[3].date)}>
+                                <div onClick={handleOpen} className='w-[100%] flex items-center justify-between bg-[#778da9] rounded-[20px] p-2 cursor-pointer text-white'>
+                                    <div className='h-[100%] flex flex-col items-center justify-center'>
+                                        <img src={data.forecast.forecastday[3].day.condition.icon} alt='/' />
+                                    </div>
+                                    <div className='w-[100%] h-[100%] flex flex-col items-center justify-center gap-2'>
+                                        <div className='w-[100%] h-[50%] flex items-center justify-center gap-6'>
+                                            <p className='text-green-300 text-center'>{data.forecast.forecastday[3].date}</p>
+                                            <div className='flex items-center justify-center gap-1'>
+                                                <BsThermometerSun size={20} />
+                                                <p><b>{data.forecast.forecastday[3].day.maxtemp_c} ºC</b></p>
+                                            </div>
+                                            <p><b>-</b></p>
+                                            <div className='flex items-center justify-center gap-1'>
+                                                <BsThermometerSnow size={20} />
+                                                <p><b>{data.forecast.forecastday[3].day.mintemp_c} ºC</b></p>
                                             </div>
                                         </div>
+                                        <Divider sx={{ width: '90%' }} />
+                                        <div className='w-[100%] h-[50%] flex items-center justify-center gap-8 md:gap-16'>
+                                            <div className='flex items-center justify-center gap-1'>
+                                                <BsFillCloudRainHeavyFill />
+                                                <p><b>{data.forecast.forecastday[3].day.daily_chance_of_rain}%</b></p>
+                                            </div>
+                                            <div className='flex items-center justify-center gap-1'>
+                                                <BsSnow />
+                                                <p><b>{data.forecast.forecastday[3].day.daily_chance_of_snow}%</b></p>
+                                            </div>
+                                            <div className='flex items-center justify-center gap-1'>
+                                                <BiWind />
+                                                <p><b>{data.forecast.forecastday[3].day.maxwind_kph} Kmh</b></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                                        {/* fifth */}
-                                        <div className='w-[100%]' onClick={() => setValue(data.forecast.forecastday[4].date)}>
-                                            <div onClick={handleOpen} className='w-[100%] flex items-center justify-between bg-[#778da9] rounded-[20px] p-2 cursor-pointer text-white'>
-                                                <div className='h-[100%] flex flex-col items-center justify-center'>
-                                                    <img src={data.forecast.forecastday[4].day.condition.icon} alt='/' />
-                                                </div>
-                                                <div className='w-[100%] h-[100%] flex flex-col items-center justify-center gap-2'>
-                                                    <div className='w-[100%] h-[50%] flex items-center justify-center gap-6'>
-                                                        <p className='text-green-300 text-center'>{data.forecast.forecastday[4].date}</p>
-                                                        <div className='flex items-center justify-center gap-1'>
-                                                            <BsThermometerSun size={20} />
-                                                            <p><b>{data.forecast.forecastday[4].day.maxtemp_c} ºC</b></p>
-                                                        </div>
-                                                        <p><b>-</b></p>
-                                                        <div className='flex items-center justify-center gap-1'>
-                                                            <BsThermometerSnow size={20} />
-                                                            <p><b>{data.forecast.forecastday[4].day.mintemp_c} ºC</b></p>
-                                                        </div>
-                                                    </div>
-                                                    <Divider sx={{ width: '90%' }} />
-                                                    <div className='w-[100%] h-[50%] flex items-center justify-center gap-8 md:gap-16'>
-                                                        <div className='flex items-center justify-center gap-1'>
-                                                            <BsFillCloudRainHeavyFill />
-                                                            <p><b>{data.forecast.forecastday[4].day.daily_chance_of_rain}%</b></p>
-                                                        </div>
-                                                        <div className='flex items-center justify-center gap-1'>
-                                                            <BsSnow />
-                                                            <p><b>{data.forecast.forecastday[4].day.daily_chance_of_snow}%</b></p>
-                                                        </div>
-                                                        <div className='flex items-center justify-center gap-1'>
-                                                            <BiWind />
-                                                            <p><b>{data.forecast.forecastday[4].day.maxwind_kph} Kmh</b></p>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                            {/* fifth */}
+                            <div className='w-[100%] text-[14px] md:text-xl' onClick={() => setValue(data.forecast.forecastday[4].date)}>
+                                <div onClick={handleOpen} className='w-[100%] flex items-center justify-between bg-[#778da9] rounded-[20px] p-2 cursor-pointer text-white'>
+                                    <div className='h-[100%] flex flex-col items-center justify-center'>
+                                        <img src={data.forecast.forecastday[4].day.condition.icon} alt='/' />
+                                    </div>
+                                    <div className='w-[100%] h-[100%] flex flex-col items-center justify-center gap-2'>
+                                        <div className='w-[100%] h-[50%] flex items-center justify-center gap-6'>
+                                            <p className='text-green-300 text-center'>{data.forecast.forecastday[4].date}</p>
+                                            <div className='flex items-center justify-center gap-1'>
+                                                <BsThermometerSun size={20} />
+                                                <p><b>{data.forecast.forecastday[4].day.maxtemp_c} ºC</b></p>
+                                            </div>
+                                            <p><b>-</b></p>
+                                            <div className='flex items-center justify-center gap-1'>
+                                                <BsThermometerSnow size={20} />
+                                                <p><b>{data.forecast.forecastday[4].day.mintemp_c} ºC</b></p>
                                             </div>
                                         </div>
+                                        <Divider sx={{ width: '90%' }} />
+                                        <div className='w-[100%] h-[50%] flex items-center justify-center gap-8 md:gap-16'>
+                                            <div className='flex items-center justify-center gap-1'>
+                                                <BsFillCloudRainHeavyFill />
+                                                <p><b>{data.forecast.forecastday[4].day.daily_chance_of_rain}%</b></p>
+                                            </div>
+                                            <div className='flex items-center justify-center gap-1'>
+                                                <BsSnow />
+                                                <p><b>{data.forecast.forecastday[4].day.daily_chance_of_snow}%</b></p>
+                                            </div>
+                                            <div className='flex items-center justify-center gap-1'>
+                                                <BiWind />
+                                                <p><b>{data.forecast.forecastday[4].day.maxwind_kph} Kmh</b></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                         </div>
                     </div>
@@ -739,6 +760,8 @@ const GeoWeather = () => {
                 }
             </div>
         </div>
+        }
+        </>
     )
 }
 
