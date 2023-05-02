@@ -48,7 +48,7 @@ const Home = () => {
         setValue('')
     }
 
-    const url = `http://api.weatherapi.com/v1/forecast.json?key=2d8625bb82be48e7b93210829232604&q=${location}&days=5&aqi=no&alerts=no`
+    const url = `https://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_API_KEY}&q=${location}&days=5&aqi=no&alerts=no`
 
     const Serch = (event) => {
         if (event.key === 'Enter') {

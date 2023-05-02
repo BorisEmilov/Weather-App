@@ -30,8 +30,7 @@ const Modal = ({ handle, content }) => {
     )
 }
 
-
-const base_url = `http://api.weatherapi.com/v1/forecast.json?key=2d8625bb82be48e7b93210829232604&`
+const base_url = `https://api.weatherapi.com/v1/forecast.json?key=${process.env.REACT_APP_API_KEY}&`
 
 const GeoWeather = () => {
 
