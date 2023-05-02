@@ -483,7 +483,7 @@ const Home = () => {
                     <input type='text' value={location} onChange={event => setLocation(event.target.value)} onKeyPress={Serch} placeholder='Search...' className='w-[80%] h-[40px] md:w-[60%] text-center rounded-[20px]' />
                 </div>
                 <div onClick={refresh} className='flex items-center justify-center p-4 backdrop-blur-md bg-white/30 rounded-[50%] cursor-pointer'>
-                    <MdOutlineGpsFixed size={40} />
+                    <MdOutlineGpsFixed size={30} />
                 </div>
 
                 {
